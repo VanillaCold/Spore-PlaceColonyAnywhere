@@ -19,9 +19,6 @@
     <ClInclude Include="stdafx.h">
       <Filter>Internal</Filter>
     </ClInclude>
-    <ClInclude Include="PlaceColonyAnywhere.h">
-      <Filter>PlaceColonyAnywhere</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -29,9 +26,6 @@
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Internal</Filter>
-    </ClCompile>
-    <ClCompile Include="PlaceColonyAnywhere.cpp">
-      <Filter>PlaceColonyAnywhere</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,20 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 #include "stdafx.h"
-#include "PlaceColonyAnywhere.h"
+#include <Spore\Simulator\cPlaceColonyToolStrategy.h>
+using namespace Simulator;
+
+virtual_detour(PlaceColonyAnywhereDetour, cPlaceColonyToolStrategy, cToolStrategy, bool(cSpaceToolData*, const Vector3&, bool))
+{
+	bool detoured(cSpaceToolData * pTool, const Vector3 & aimPoint, bool showErrors)
+	{
+		bool result = original_function(this, pTool, aimPoint, showErrors);
+		if (result == 0)
+		{
+			return true;
+		}
+		return result;
+	}
+};
 
 void Initialize()
 {
@@ -11,7 +25,7 @@ void Initialize()
 	//  - Add new game modes
 	//  - Add new space tools
 	//  - Change materials
-	ToolManager.AddStrategy(new PlaceColonyAnywhere(), id("PlaceColonyAnywhere"));
+	//ToolManager.AddStrategy(new PlaceColonyAnywhere(), id("PlaceColonyAnywhere"));
 }
 
 void Dispose()
@@ -21,6 +35,7 @@ void Dispose()
 
 void AttachDetours()
 {
+	PlaceColonyAnywhereDetour::attach(GetAddress(cPlaceColonyToolStrategy, WhileAiming));
 	// Call the attach() method on any detours you want to add
 	// For example: cViewer_SetRenderType_detour::attach(GetAddress(cViewer, SetRenderType));
 }
